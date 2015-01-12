@@ -27,8 +27,8 @@ angular.module('Instagram', ['ngRoute', 'ngMessages', 'satellizer'])
 		$authProvider.signupUrl = 'http://localhost:3000/auth/signup';
 		$authProvider.oauth2({
 			name: 'instagram',
-			url: 'http://0.0.0.0:3000/auth/instagram',
-			redirectUri: 'http://localhost:8080',
+			url: 'http://localhost:3000/auth/instagram',
+			redirectUri: 'http://localhost:8000',
 			clientId: '804bd53442e443b7abbea9328909482c',
 			requiredUrlParams: ['scope'],
 			scope: ['likes'],
@@ -36,9 +36,8 @@ angular.module('Instagram', ['ngRoute', 'ngMessages', 'satellizer'])
 			authrizationEndpoint: 'https://api.instagram.com/oauth/authorize'
 		});
 	})
-
-.run(function($rootScope, $window, $auth) {
-  if ($auth.isAuthenticated()) {
-    $rootScope.currentUser = JSON.parse($window.localStorage.currentUser);
-  }
-});
+	.run(function($rootScope, $window, $auth) {
+	  if ($auth.isAuthenticated()) {
+	    $rootScope.currentUser = JSON.parse($window.localStorage.currentUser || "{}");
+	  }
+	});

@@ -28,15 +28,10 @@ var app = express();
 
 app.set('port', process.env.PORT || 3000);
 app.use(cors());
+app.options('*', cors()); 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-
-
-var corsOptions = {
-  origin: 'http://0.0.0.0:8080'
-};
-
 
 function createToken(user) {
   var payload = {
@@ -116,9 +111,8 @@ app.post('/auth/signup', function(req, res) {
   });
 });
 
-
-app.options('/auth/instagram', cors()); // enable pre-flight request for POST request  
-app.post('/auth/instagram', cors(corsOptions), function(req, res) {
+// app.options('/auth/instagram', cors());
+app.post('/auth/instagram', function(req, res) {
   var accessTokenUrl = 'https://api.instagram.com/oauth/access_token';
  
   var params = {

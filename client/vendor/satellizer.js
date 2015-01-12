@@ -395,7 +395,7 @@
               redirectUri: defaults.redirectUri
             });
 
-            return $http.post(defaults.url, data, {withCredentials: true});
+            return $http.post(defaults.url, data, {withCredentials: false});
           };
 
           oauth2.buildUrl = function() {
